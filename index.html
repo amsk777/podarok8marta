@@ -144,7 +144,7 @@ p{
 </audio>
 
 <script>
-// создаём звёзды
+// stars
 for(let i=0;i<150;i++){
   let star=document.createElement("div");
   star.className="star";
@@ -154,7 +154,7 @@ for(let i=0;i<150;i++){
   document.body.appendChild(star);
 }
 
-// падающие сердечки и цветы
+// falling hearts and flowers
 setInterval(()=>{
   let heart=document.createElement("div");
   heart.className="heart";
@@ -173,7 +173,7 @@ setInterval(()=>{
   setTimeout(()=>flower.remove(),10000);
 },400);
 
-// слайды
+// slides
 let current=0;
 const slides=document.querySelectorAll(".slide");
 
@@ -186,7 +186,7 @@ function showSlide(i){
 function next(){ current++; if(current>=slides.length) current=slides.length-1; showSlide(current);}
 function prev(){ current--; if(current<0) current=0; showSlide(current); }
 
-// свайпы для мобильных
+// swipes for mobile devices
 let touchStartX = null;
 document.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; });
 document.addEventListener('touchend', e => {
@@ -198,7 +198,7 @@ document.addEventListener('touchend', e => {
   touchStartX=null;
 });
 
-// фейерверк
+// firework
 const canvas = document.getElementById('fireworkCanvas');
 const ctx = canvas.getContext('2d');
 let particles = [];
