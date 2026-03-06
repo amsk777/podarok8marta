@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Маме на 8 Марта</title>
+
+<style>
+
+body{
+margin:0;
+height:100vh;
+background:linear-gradient(#1a1a2e,#16213e,#0f3460);
+font-family:Arial;
+overflow:hidden;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+color:white;
+}
+
+.container{
+z-index:2;
+}
+
+h1{
+font-size:45px;
+}
+
+button{
+margin-top:25px;
+padding:15px 35px;
+font-size:20px;
+border:none;
+border-radius:12px;
+background:#ff4d6d;
+color:white;
+cursor:pointer;
+transition:0.3s;
+}
+
+button:hover{
+transform:scale(1.1);
+}
+
+#message{
+margin-top:25px;
+font-size:22px;
+opacity:0;
+transition:1s;
+}
+
+.star{
+position:absolute;
+background:white;
+width:2px;
+height:2px;
+border-radius:50%;
+animation:twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle{
+from{opacity:0.2}
+to{opacity:1}
+}
+
+.flower{
+position:absolute;
+font-size:20px;
+animation:fall linear infinite;
+}
+
+@keyframes fall{
+0%{
+transform:translateY(-10vh) rotate(0deg);
+}
+100%{
+transform:translateY(110vh) rotate(360deg);
+}
+}
+
+.heart{
+position:absolute;
+font-size:25px;
+animation:firework 3s ease forwards;
+}
+
+@keyframes firework{
+0%{
+transform:scale(0);
+opacity:1;
+}
+100%{
+transform:translateY(-200px) scale(1.5);
+opacity:0;
+}
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>💐 С 8 Марта, мама! 💐</h1>
+
+<p>Нажми на кнопку, чтобы увидеть сюрприз</p>
+
+<button onclick="start()">Открыть подарок 🎁</button>
+
+<div id="message">
+Мама ❤️<br><br>
+Спасибо тебе за любовь, заботу и поддержку.<br>
+Ты самый дорогой человек для меня.<br><br>
+С праздником! 🌷
+</div>
+
+</div>
+
+<script>
+
+for(let i=0;i<120;i++){
+const star=document.createElement("div");
+star.className="star";
+star.style.left=Math.random()*100+"vw";
+star.style.top=Math.random()*100+"vh";
+star.style.animationDuration=(1+Math.random()*2)+"s";
+document.body.appendChild(star);
+}
+
+setInterval(()=>{
+const flower=document.createElement("div");
+flower.className="flower";
+flower.innerHTML="🌸";
+flower.style.left=Math.random()*100+"vw";
+flower.style.animationDuration=(5+Math.random()*5)+"s";
+document.body.appendChild(flower);
+
+setTimeout(()=>flower.remove(),10000);
+
+},500);
+
+function start(){
+
+document.getElementById("message").style.opacity=1;
+
+for(let i=0;i<30;i++){
+const heart=document.createElement("div");
+heart.className="heart";
+heart.innerHTML="❤️";
+heart.style.left=50+"vw";
+heart.style.top=50+"vh";
+heart.style.transform="translate("+(Math.random()*400-200)+"px,"+(Math.random()*400-200)+"px)";
+document.body.appendChild(heart);
+
+setTimeout(()=>heart.remove(),3000);
+}
+
+}
+
+</script>
+
+</body>
+</html>
