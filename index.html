@@ -2,164 +2,181 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<title>Маме на 8 Марта</title>
-
+<title>С 8 Марта, мама 💐</title>
 <style>
-
 body{
-margin:0;
-height:100vh;
-background:linear-gradient(#1a1a2e,#16213e,#0f3460);
-font-family:Arial;
-overflow:hidden;
-display:flex;
-align-items:center;
-justify-content:center;
-text-align:center;
-color:white;
-}
-
-.container{
-z-index:2;
-}
-
-h1{
-font-size:45px;
-}
-
-button{
-margin-top:25px;
-padding:15px 35px;
-font-size:20px;
-border:none;
-border-radius:12px;
-background:#ff4d6d;
-color:white;
-cursor:pointer;
-transition:0.3s;
-}
-
-button:hover{
-transform:scale(1.1);
-}
-
-#message{
-margin-top:25px;
-font-size:22px;
-opacity:0;
-transition:1s;
+  margin:0;
+  height:100vh;
+  overflow:hidden;
+  font-family:"Georgia", serif;
+  background:radial-gradient(circle at top,#0f0c29,#302b63,#24243e);
+  color:white;
+  display:flex;
+  justify-content:center;
+  align-items:center;
 }
 
 .star{
-position:absolute;
-background:white;
-width:2px;
-height:2px;
-border-radius:50%;
-animation:twinkle 2s infinite alternate;
+  position:absolute;
+  width:2px;
+  height:2px;
+  border-radius:50%;
+  background:white;
+  opacity:0.8;
 }
 
-@keyframes twinkle{
-from{opacity:0.2}
-to{opacity:1}
-}
-
-.flower{
-position:absolute;
-font-size:20px;
-animation:fall linear infinite;
+.heart, .flower{
+  position:absolute;
+  font-size:20px;
+  animation:fall linear;
 }
 
 @keyframes fall{
-0%{
-transform:translateY(-10vh) rotate(0deg);
-}
-100%{
-transform:translateY(110vh) rotate(360deg);
-}
+  0%{transform:translateY(-10vh); opacity:1;}
+  100%{transform:translateY(110vh); opacity:0;}
 }
 
-.heart{
-position:absolute;
-font-size:25px;
-animation:firework 3s ease forwards;
+.container{
+  width:700px;
+  max-width:90%;
+  background:rgba(255,255,255,0.08);
+  backdrop-filter:blur(10px);
+  border-radius:16px;
+  box-shadow:0 20px 40px rgba(0,0,0,0.4);
+  padding:60px;
+  text-align:center;
+  position:relative;
 }
 
-@keyframes firework{
-0%{
-transform:scale(0);
-opacity:1;
+.slide{
+  display:none;
+  animation:fade 1s;
 }
-100%{
-transform:translateY(-200px) scale(1.5);
-opacity:0;
+
+.active{
+  display:block;
 }
+
+h1{
+  font-size:40px;
+  color:#ffb3c1;
+}
+
+p{
+  font-size:20px;
+  line-height:1.6;
+}
+
+.arrow{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  font-size:40px;
+  cursor:pointer;
+  user-select:none;
+  color:#ffb3c1;
+}
+
+.arrow:hover{
+  color:white;
+}
+
+.left{ left:20px; }
+.right{ right:20px; }
+
+@keyframes fade{
+  from{opacity:0; transform:translateX(40px);}
+  to{opacity:1; transform:translateX(0);}
+}
+
+.footer{
+  margin-top:30px;
+  color:#ddd;
+  font-size:14px;
 }
 
 </style>
-
 </head>
-
 <body>
 
 <div class="container">
 
-<h1>💐 С 8 Марта, мама! 💐</h1>
-
-<p>Нажми на кнопку, чтобы увидеть сюрприз</p>
-
-<button onclick="start()">Открыть подарок 🎁</button>
-
-<div id="message">
-Мама ❤️<br><br>
-Спасибо тебе за любовь, заботу и поддержку.<br>
-Ты самый дорогой человек для меня.<br><br>
-С праздником! 🌷
+<div class="slide active">
+<h1>💐 С 8 Марта, мама!</h1>
+<p>Я сделал для тебя маленькую открытку.<br>Нажимай стрелку →</p>
 </div>
+
+<div class="slide">
+<h1>Спасибо тебе ❤️</h1>
+<p>Спасибо за твою заботу, любовь и поддержку.<br>Ты всегда рядом и я это очень ценю.</p>
+</div>
+
+<div class="slide">
+<h1>Ты самая лучшая</h1>
+<p>Ты самый добрый и дорогой человек для меня.<br>Я благодарен за всё, что ты делаешь.</p>
+</div>
+
+<div class="slide">
+<h1>🌷 С праздником!</h1>
+<p>Пусть в твоей жизни будет больше радости,<br>счастья и тёплых моментов.<br><br>С 8 Марта ❤️</p>
+<div class="footer">С любовью</div>
+</div>
+
+<div class="arrow left" onclick="prev()">←</div>
+<div class="arrow right" onclick="next()">→</div>
 
 </div>
 
 <script>
-
-for(let i=0;i<120;i++){
-const star=document.createElement("div");
-star.className="star";
-star.style.left=Math.random()*100+"vw";
-star.style.top=Math.random()*100+"vh";
-star.style.animationDuration=(1+Math.random()*2)+"s";
-document.body.appendChild(star);
+// создаём звёзды
+for(let i=0;i<150;i++){
+  let star=document.createElement("div");
+  star.className="star";
+  star.style.left=Math.random()*100+"vw";
+  star.style.top=Math.random()*100+"vh";
+  star.style.opacity=Math.random();
+  document.body.appendChild(star);
 }
 
+// падающие сердечки и цветы
 setInterval(()=>{
-const flower=document.createElement("div");
-flower.className="flower";
-flower.innerHTML="🌸";
-flower.style.left=Math.random()*100+"vw";
-flower.style.animationDuration=(5+Math.random()*5)+"s";
-document.body.appendChild(flower);
+  let heart=document.createElement("div");
+  heart.className="heart";
+  heart.innerHTML="❤️";
+  heart.style.left=Math.random()*100+"vw";
+  heart.style.animationDuration=(4+Math.random()*4)+"s";
+  document.body.appendChild(heart);
+  setTimeout(()=>heart.remove(),8000);
 
-setTimeout(()=>flower.remove(),10000);
+  let flower=document.createElement("div");
+  flower.className="flower";
+  flower.innerHTML="🌸";
+  flower.style.left=Math.random()*100+"vw";
+  flower.style.animationDuration=(5+Math.random()*5)+"s";
+  document.body.appendChild(flower);
+  setTimeout(()=>flower.remove(),10000);
+},400);
 
-},500);
+// слайды
+let current=0;
+const slides=document.querySelectorAll(".slide");
 
-function start(){
-
-document.getElementById("message").style.opacity=1;
-
-for(let i=0;i<30;i++){
-const heart=document.createElement("div");
-heart.className="heart";
-heart.innerHTML="❤️";
-heart.style.left=50+"vw";
-heart.style.top=50+"vh";
-heart.style.transform="translate("+(Math.random()*400-200)+"px,"+(Math.random()*400-200)+"px)";
-document.body.appendChild(heart);
-
-setTimeout(()=>heart.remove(),3000);
+function showSlide(i){
+  slides.forEach(s=>s.classList.remove("active"));
+  slides[i].classList.add("active");
 }
 
+function next(){
+  current++;
+  if(current>=slides.length) current=slides.length-1;
+  showSlide(current);
 }
 
+function prev(){
+  current--;
+  if(current<0) current=0;
+  showSlide(current);
+}
 </script>
 
 </body>
