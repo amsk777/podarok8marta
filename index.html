@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>С 8 Марта, мама 💐</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <style>
 body{
   margin:0;
@@ -16,6 +17,8 @@ body{
   align-items:center;
 }
 
+canvas{position:absolute; top:0; left:0; z-index:0;}
+
 .star{
   position:absolute;
   width:2px;
@@ -27,8 +30,9 @@ body{
 
 .heart, .flower{
   position:absolute;
-  font-size:20px;
+  font-size:5vw;
   animation:fall linear;
+  z-index:1;
 }
 
 @keyframes fall{
@@ -37,33 +41,33 @@ body{
 }
 
 .container{
-  width:700px;
-  max-width:90%;
+  width:90%;
+  max-width:700px;
   background:rgba(255,255,255,0.08);
   backdrop-filter:blur(10px);
   border-radius:16px;
   box-shadow:0 20px 40px rgba(0,0,0,0.4);
-  padding:60px;
+  padding:4vw 6vw;
   text-align:center;
   position:relative;
+  z-index:2;
 }
 
 .slide{
   display:none;
-  animation:fade 1s;
+  animation:fade 0.8s;
 }
 
-.active{
-  display:block;
-}
+.active{display:block;}
 
 h1{
-  font-size:40px;
+  font-size:8vw;
   color:#ffb3c1;
+  margin-bottom:4vw;
 }
 
 p{
-  font-size:20px;
+  font-size:4vw;
   line-height:1.6;
 }
 
@@ -71,33 +75,41 @@ p{
   position:absolute;
   top:50%;
   transform:translateY(-50%);
-  font-size:40px;
+  font-size:10vw;
   cursor:pointer;
   user-select:none;
   color:#ffb3c1;
+  z-index:3;
 }
 
-.arrow:hover{
-  color:white;
-}
-
-.left{ left:20px; }
-.right{ right:20px; }
+.arrow:hover{color:white;}
+.left{ left:5vw; }
+.right{ right:5vw; }
 
 @keyframes fade{
-  from{opacity:0; transform:translateX(40px);}
+  from{opacity:0; transform:translateX(10vw);}
   to{opacity:1; transform:translateX(0);}
 }
 
 .footer{
-  margin-top:30px;
+  margin-top:5vw;
   color:#ddd;
-  font-size:14px;
+  font-size:3vw;
 }
 
+@media (min-width: 768px){
+  .container{ padding:40px; }
+  h1{ font-size:40px; margin-bottom:20px; }
+  p{ font-size:20px; }
+  .arrow{ font-size:40px; }
+  .footer{ font-size:14px; }
+  .heart, .flower{ font-size:20px; }
+}
 </style>
 </head>
 <body>
+
+<canvas id="fireworkCanvas"></canvas>
 
 <div class="container">
 
@@ -113,7 +125,7 @@ p{
 
 <div class="slide">
 <h1>Ты самая лучшая</h1>
-<p>Ты самый добрый и дорогой человек для меня.<br>Я благодарен за всё, что ты делаешь.</p>
+<p>Ты самый добрый и дорогой человек для меня.<br>Я благодарен за всё, что ты делает.</p>
 </div>
 
 <div class="slide">
@@ -126,6 +138,10 @@ p{
 <div class="arrow right" onclick="next()">→</div>
 
 </div>
+
+<audio id="bgMusic" loop autoplay>
+<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c0b5f9f0b7.mp3?filename=happy-piano-113308.mp3" type="audio/mpeg">
+</audio>
 
 <script>
 // создаём звёзды
@@ -164,19 +180,82 @@ const slides=document.querySelectorAll(".slide");
 function showSlide(i){
   slides.forEach(s=>s.classList.remove("active"));
   slides[i].classList.add("active");
+  if(i===slides.length-1){ startFireworks(); } else { stopFireworks(); }
 }
 
-function next(){
-  current++;
-  if(current>=slides.length) current=slides.length-1;
-  showSlide(current);
+function next(){ current++; if(current>=slides.length) current=slides.length-1; showSlide(current);}
+function prev(){ current--; if(current<0) current=0; showSlide(current); }
+
+// свайпы для мобильных
+let touchStartX = null;
+document.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; });
+document.addEventListener('touchend', e => {
+  if(touchStartX===null) return;
+  let touchEndX = e.changedTouches[0].screenX;
+  let diff = touchStartX - touchEndX;
+  if(diff>50) next();
+  if(diff<-50) prev();
+  touchStartX=null;
+});
+
+// фейерверк
+const canvas = document.getElementById('fireworkCanvas');
+const ctx = canvas.getContext('2d');
+let particles = [];
+let fwInterval;
+
+function resizeCanvas(){
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
+
+function Firework(x, y, color){
+  this.x = x;
+  this.y = y;
+  this.vx = (Math.random()-0.5)*4;
+  this.vy = (Math.random()-0.5)*4;
+  this.alpha = 1;
+  this.color = color;
+  this.radius = Math.random()*3+2;
+}
+Firework.prototype.update = function(){
+  this.x += this.vx;
+  this.y += this.vy;
+  this.alpha -= 0.02;
+}
+Firework.prototype.draw = function(){
+  ctx.globalAlpha = this.alpha;
+  ctx.fillStyle = this.color;
+  ctx.beginPath();
+  ctx.arc(this.x,this.y,this.radius,0,Math.PI*2);
+  ctx.fill();
 }
 
-function prev(){
-  current--;
-  if(current<0) current=0;
-  showSlide(current);
+function animate(){
+  ctx.clearRect(0,0,canvas.width, canvas.height);
+  particles.forEach((p, i)=>{
+    p.update();
+    p.draw();
+    if(p.alpha<=0) particles.splice(i,1);
+  });
+  requestAnimationFrame(animate);
 }
+animate();
+
+function startFireworks(){
+  const colors = ["#ff3c78","#ffd93d","#6a0dad","#4fc3f7","#ff6e40"];
+  fwInterval = setInterval(()=>{
+    const x = Math.random()*canvas.width;
+    const y = Math.random()*canvas.height*0.5;
+    for(let i=0;i<30;i++){
+      particles.push(new Firework(x,y,colors[Math.floor(Math.random()*colors.length)]));
+    }
+  },300);
+}
+
+function stopFireworks(){ clearInterval(fwInterval); }
 </script>
 
 </body>
