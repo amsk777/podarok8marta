@@ -1,263 +1,603 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<title>С 8 Марта, мама 💐</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<style>
-body{
-  margin:0;
-  height:100vh;
-  overflow:hidden;
-  font-family:"Georgia", serif;
-  background:radial-gradient(circle at top,#0f0c29,#302b63,#24243e);
-  color:white;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>❤️❤️❤️</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: radial-gradient(ellipse at top, #0b1a2e, #030712);
+      min-height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
 
-canvas{position:absolute; top:0; left:0; z-index:0;}
+    .stars {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
 
-.star{
-  position:absolute;
-  width:2px;
-  height:2px;
-  border-radius:50%;
-  background:white;
-  opacity:0.8;
-}
+    .star {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #fff, 0 0 20px #fff;
+      animation: twinkle 3s infinite ease-in-out;
+    }
 
-.heart, .flower{
-  position:absolute;
-  font-size:5vw;
-  animation:fall linear;
-  z-index:1;
-}
+    @keyframes twinkle {
+      0% { opacity: 0.2; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.2); box-shadow: 0 0 15px #ffdd88; }
+      100% { opacity: 0.2; transform: scale(1); }
+    }
 
-@keyframes fall{
-  0%{transform:translateY(-10vh); opacity:1;}
-  100%{transform:translateY(110vh); opacity:0;}
-}
+    .moon {
+      position: fixed;
+      top: 40px;
+      right: 40px;
+      font-size: 4rem;
+      filter: drop-shadow(0 0 15px #fff8e7);
+      z-index: 1;
+      opacity: 0.7;
+      animation: moonGlow 4s infinite alternate;
+    }
 
-.container{
-  width:90%;
-  max-width:700px;
-  background:rgba(255,255,255,0.08);
-  backdrop-filter:blur(10px);
-  border-radius:16px;
-  box-shadow:0 20px 40px rgba(0,0,0,0.4);
-  padding:4vw 6vw;
-  text-align:center;
-  position:relative;
-  z-index:2;
-}
+    @keyframes moonGlow {
+      from { filter: drop-shadow(0 0 10px #fff0d0); }
+      to { filter: drop-shadow(0 0 25px #ffe5b4); }
+    }
 
-.slide{
-  display:none;
-  animation:fade 0.8s;
-}
+    .hearts-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 5;
+      overflow: hidden;
+    }
 
-.active{display:block;}
+    .heart {
+      position: absolute;
+      color: rgba(255, 100, 150, 0.7);
+      font-size: 24px;
+      top: -10%;
+      animation: fall linear infinite, sparkle 1.5s infinite alternate;
+      text-shadow: 0 0 15px currentColor;
+      will-change: transform, opacity; 
+    }
 
-h1{
-  font-size:8vw;
-  color:#ffb3c1;
-  margin-bottom:4vw;
-}
+    @keyframes fall {
+      to {
+        transform: translateY(110vh);
+      }
+    }
 
-p{
-  font-size:4vw;
-  line-height:1.6;
-}
+    @keyframes sparkle {
+      0% { opacity: 0.3; filter: brightness(1); }
+      100% { opacity: 1; filter: brightness(1.5); }
+    }
 
-.arrow{
-  position:absolute;
-  top:50%;
-  transform:translateY(-50%);
-  font-size:10vw;
-  cursor:pointer;
-  user-select:none;
-  color:#ffb3c1;
-  z-index:3;
-}
+    .swiper {
+      width: 100%;
+      height: 100vh;
+      position: relative;
+      z-index: 10;
+    }
 
-.arrow:hover{color:white;}
-.left{ left:5vw; }
-.right{ right:5vw; }
+    .swiper-slide {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px 25px;
+      overflow-y: auto;
+    }
 
-@keyframes fade{
-  from{opacity:0; transform:translateX(10vw);}
-  to{opacity:1; transform:translateX(0);}
-}
+    .card-content {
+      position: relative;
+      z-index: 20;
+      background: rgba(10, 15, 30, 0.45);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border-radius: 48px;
+      padding: 2.2rem 1.8rem;
+      box-shadow: 0 25px 40px rgba(0, 0, 0, 0.5), inset 0 1px 2px rgba(255,255,255,0.2);
+      border: 1px solid rgba(255, 215, 230, 0.25);
+      width: 100%;
+      max-width: 600px;
+      text-align: center;
+      color: #fff3e6;
+    }
 
-.footer{
-  margin-top:5vw;
-  color:#ddd;
-  font-size:3vw;
-}
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3.4rem;
+      font-weight: 700;
+      color: #ffddee;
+      margin-bottom: 1rem;
+      text-shadow: 0 0 15px #ff99bb;
+    }
 
-@media (min-width: 768px){
-  .container{ padding:40px; }
-  h1{ font-size:40px; margin-bottom:20px; }
-  p{ font-size:20px; }
-  .arrow{ font-size:40px; }
-  .footer{ font-size:14px; }
-  .heart, .flower{ font-size:20px; }
-}
-</style>
+    h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.6rem;
+      color: #ffd0e0;
+      margin-bottom: 1rem;
+      text-shadow: 0 0 8px #ffaacc;
+    }
+
+    .poem {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.9rem;
+      line-height: 1.5;
+      color: #ffecf0;
+      margin: 1.2rem 0;
+    }
+
+    .poem p {
+      margin: 0.8rem 0;
+    }
+
+    .signature {
+      font-size: 1.6rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      color: #ffc1d0;
+      margin-top: 1.5rem;
+      border-top: 2px solid #ff99bb;
+      padding-top: 1rem;
+    }
+
+    .surprise-btn, .firework-btn {
+      display: inline-block;
+      background: #8a6d8b;
+      border: none;
+      padding: 1rem 2.5rem;
+      border-radius: 50px;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: white;
+      text-shadow: 0 2px 5px #4a2a4a;
+      box-shadow: 0 10px 20px -6px #3d2b3d;
+      cursor: pointer;
+      transition: 0.2s;
+      border: 1px solid #dbb2c9;
+      margin: 2rem 0 1rem;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .surprise-btn i, .firework-btn i {
+      margin-right: 8px;
+    }
+
+    .surprise-btn:active, .firework-btn:active {
+      transform: scale(0.97);
+      background: #b48ab0;
+    }
+
+    .hidden-message {
+      display: none;
+      margin-top: 1.5rem;
+      background: rgba(30, 15, 30, 0.8);
+      border-radius: 40px;
+      padding: 1.5rem;
+      border: 2px solid #ffb6c1;
+      animation: fadeIn 0.5s;
+      font-size: 1.7rem;
+      font-family: 'Cormorant Garamond', serif;
+      color: #ffeef5;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .photo-strip {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 2rem 0;
+    }
+
+    .photo-strip span {
+      width: 70px;
+      height: 70px;
+      background: rgba(40, 20, 30, 0.7);
+      border-radius: 30% 70% 70% 30% / 30% 55% 45% 70%;
+      border: 3px solid #ffc0cb;
+      box-shadow: 0 8px 15px rgba(0,0,0,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2rem;
+      color: #ffcfd5;
+      transform: rotate(3deg);
+      transition: 0.2s;
+    }
+
+    .photo-strip span:nth-child(even) {
+      transform: rotate(-3deg);
+    }
+
+    .photo-strip span:active {
+      transform: rotate(0deg) scale(1.1);
+    }
+
+    .swiper-pagination-bullet {
+      background: rgba(255, 200, 220, 0.5);
+      opacity: 1;
+      width: 10px;
+      height: 10px;
+      border-radius: 10px;
+      transition: 0.3s;
+      border: 1px solid rgba(255,255,255,0.8);
+    }
+
+    .swiper-pagination-bullet-active {
+      width: 28px;
+      background: #ff99bb;
+    }
+
+    .swiper-button-prev, .swiper-button-next {
+      color: rgba(255, 200, 220, 0.7);
+      text-shadow: 0 0 15px #ffaacc;
+      transition: 0.2s;
+    }
+
+    .swiper-button-prev:active, .swiper-button-next:active {
+      color: #ffddee;
+      transform: scale(1.1);
+    }
+
+    .swiper-button-prev::after, .swiper-button-next::after {
+      font-size: 2.5rem;
+    }
+
+    .footer-note {
+      font-size: 1rem;
+      color: #cfaabc;
+      margin-top: 1.2rem;
+      font-weight: 300;
+    }
+
+    #fireworksCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 10000;
+      display: none;
+    }
+
+    @media (max-width: 450px) {
+      h1 { font-size: 2.8rem; }
+      h2 { font-size: 2.2rem; }
+      .poem { font-size: 1.7rem; }
+      .card-content { padding: 1.8rem 1.2rem; }
+      .photo-strip span { width: 55px; height: 55px; font-size: 1.8rem; }
+      .moon { font-size: 3rem; top: 20px; right: 20px; }
+      .swiper-button-prev::after, .swiper-button-next::after { font-size: 2rem; }
+      .heart { font-size: 18px; }
+    }
+  </style>
 </head>
 <body>
+  <div class="stars" id="starsContainer"></div>
 
-<canvas id="fireworkCanvas"></canvas>
+  <div class="moon">🌙</div>
 
-<div class="container">
+  <div class="hearts-container" id="heartsContainer"></div>
 
-<div class="slide active">
-<h1>💐 С 8 Марта, мама!</h1>
-<p>Я сделал для тебя маленькую открытку.<br>Нажимай стрелку →</p>
-</div>
-
-<div class="slide">
-<h1>Спасибо тебе ❤️</h1>
-<p>Спасибо за твою заботу, любовь и поддержку.<br>Ты всегда рядом и я это очень ценю.</p>
-</div>
-
-<div class="slide">
-<h1>Ты самая лучшая</h1>
-<p>Ты самый добрый и дорогой человек для меня.<br>Я благодарен за всё, что ты делаешь.</p>
-</div>
-
-<div class="slide">
-<h1>🌷 С праздником!</h1>
-<p>Пусть в твоей жизни будет больше радости,<br>счастья и тёплых моментов.<br><br>С 8 Марта ❤️</p>
-<div class="footer">С любовью</div>
-</div>
-
-<div class="arrow left" onclick="prev()">←</div>
-<div class="arrow right" onclick="next()">→</div>
-
-</div>
-
-<audio id="bgMusic" loop autoplay>
-<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c0b5f9f0b7.mp3?filename=happy-piano-113308.mp3" type="audio/mpeg">
-</audio>
-
-<script>
-// stars
-for(let i=0;i<150;i++){
-  let star=document.createElement("div");
-  star.className="star";
-  star.style.left=Math.random()*100+"vw";
-  star.style.top=Math.random()*100+"vh";
-  star.style.opacity=Math.random();
-  document.body.appendChild(star);
-}
-
-// falling hearts and flowers
-setInterval(()=>{
-  let heart=document.createElement("div");
-  heart.className="heart";
-  heart.innerHTML="❤️";
-  heart.style.left=Math.random()*100+"vw";
-  heart.style.animationDuration=(4+Math.random()*4)+"s";
-  document.body.appendChild(heart);
-  setTimeout(()=>heart.remove(),8000);
-
-  let flower=document.createElement("div");
-  flower.className="flower";
-  flower.innerHTML="🌸";
-  flower.style.left=Math.random()*100+"vw";
-  flower.style.animationDuration=(5+Math.random()*5)+"s";
-  document.body.appendChild(flower);
-  setTimeout(()=>flower.remove(),10000);
-},400);
-
-// slides
-let current=0;
-const slides=document.querySelectorAll(".slide");
-
-function showSlide(i){
-  slides.forEach(s=>s.classList.remove("active"));
-  slides[i].classList.add("active");
-  if(i===slides.length-1){ startFireworks(); } else { stopFireworks(); }
-}
-
-function next(){ current++; if(current>=slides.length) current=slides.length-1; showSlide(current);}
-function prev(){ current--; if(current<0) current=0; showSlide(current); }
-
-// swipes for mobile devices
-let touchStartX = null;
-document.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; });
-document.addEventListener('touchend', e => {
-  if(touchStartX===null) return;
-  let touchEndX = e.changedTouches[0].screenX;
-  let diff = touchStartX - touchEndX;
-  if(diff>50) next();
-  if(diff<-50) prev();
-  touchStartX=null;
-});
-
-// firework
-const canvas = document.getElementById('fireworkCanvas');
-const ctx = canvas.getContext('2d');
-let particles = [];
-let fwInterval;
-
-function resizeCanvas(){
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-}
-window.addEventListener('resize', resizeCanvas);
-resizeCanvas();
-
-function Firework(x, y, color){
-  this.x = x;
-  this.y = y;
-  this.vx = (Math.random()-0.5)*4;
-  this.vy = (Math.random()-0.5)*4;
-  this.alpha = 1;
-  this.color = color;
-  this.radius = Math.random()*3+2;
-}
-Firework.prototype.update = function(){
-  this.x += this.vx;
-  this.y += this.vy;
-  this.alpha -= 0.02;
-}
-Firework.prototype.draw = function(){
-  ctx.globalAlpha = this.alpha;
-  ctx.fillStyle = this.color;
-  ctx.beginPath();
-  ctx.arc(this.x,this.y,this.radius,0,Math.PI*2);
-  ctx.fill();
-}
-
-function animate(){
-  ctx.clearRect(0,0,canvas.width, canvas.height);
-  particles.forEach((p, i)=>{
-    p.update();
-    p.draw();
-    if(p.alpha<=0) particles.splice(i,1);
-  });
-  requestAnimationFrame(animate);
-}
-animate();
-
-function startFireworks(){
-  const colors = ["#ff3c78","#ffd93d","#6a0dad","#4fc3f7","#ff6e40"];
-  fwInterval = setInterval(()=>{
-    const x = Math.random()*canvas.width;
-    const y = Math.random()*canvas.height*0.5;
-    for(let i=0;i<30;i++){
-      particles.push(new Firework(x,y,colors[Math.floor(Math.random()*colors.length)]));
-    }
-  },300);
-}
-
-function stopFireworks(){ clearInterval(fwInterval); }
-</script>
-
+  <canvas id="fireworksCanvas"></canvas>
+  
 </body>
 </html>
+  <div class="swiper">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide">
+        <div class="card-content">
+          <h1>
+            <i class="fas fa-butterfly"></i> С 8 марта, мама! <i class="fas fa-butterfly"></i>
+          </h1>
+          <div style="font-size: 1.8rem; color:#ffc0d0; margin: 20px 0;">
+            <i class=""></i> Я сделал для тебя маленькую открытку. <i class=""></i>
+          </div>
+          <div style="font-size: 2rem; color:#ffd9e5; margin: 30px 0;">
+            ❤️❤️❤️
+          </div>
+          <p style="font-size:1.3rem; color:#ccb8c5;">Листай вправо →</p>
+        </div>
+      </div>
 
+      <div class="swiper-slide">
+        <div class="card-content">
+          <h2>С 8 Марта, мама!</h2>
+          <div class="poem">
+            <p>Ты — самый главный человек,</p>
+            <p>Роднее нет на целом свете.</p>
+            <p>Твоя улыбка — словно свет,</p>
+            <p>Что душу мне и сердце греет.</p>
+            <p><i class="fas fa-spa"></i></p>
+            <p>Желаю счастья и тепла,</p>
+            <p>Весенних красок, вдохновенья,</p>
+            <p>Чтоб ты, как роза, расцвела,</p>
+            <p>Исполнились все настроенья!</p>
+          </div>
+          <div class="signature">
+            ❤️❤️❤️ <i class=""></i><i class=""></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="swiper-slide">
+        <div class="card-content">
+          <h2><i class="fas fa-gift"></i> Сюрприз</h2>
+          <div class="surprise-btn" id="surpriseBtn">
+            <i class="fas fa-gift"></i> Нажми скорее!
+          </div>
+          <div id="hiddenMessage" class="hidden-message">
+            <p>🌸 Мамочка, ты — самое дорогое! 🌸</p>
+            <p>Пусть каждый день дарит улыбки!</p>
+            <div>❤️❤️❤️</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="swiper-slide">
+        <div class="card-content">
+          <h2>❤️❤️❤️</h2>
+          <p style="font-size:1.6rem; font-family: 'Cormorant Garamond'; color:#ffd5e2; margin:20px 0;">
+            Спасибо за твою заботу и тепло.<br>Ты — моя радость и гордость.
+          </p>
+          <div class="firework-btn" id="fireworkBtn">
+            <i class="fas fa-fire"></i> Запустить салют!
+          </div>
+          <div class="footer-note">
+            <i class="fas fa-feather-alt"></i> 8 марта 2026
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="swiper-pagination"></div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+  <script>
+    (function() {
+      const starsContainer = document.getElementById('starsContainer');
+      const starCount = 150;
+      for (let i = 0; i < starCount; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        const size = Math.random() * 3 + 1;
+        star.style.width = size + 'px';
+        star.style.height = size + 'px';
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 100 + '%';
+        star.style.animationDelay = Math.random() * 5 + 's';
+        star.style.animationDuration = Math.random() * 3 + 2 + 's';
+        starsContainer.appendChild(star);
+      }
+
+      const heartsContainer = document.getElementById('heartsContainer');
+      const heartCount = 50; 
+      for (let i = 0; i < heartCount; i++) {
+        const heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.innerHTML = '❤️';
+        const size = Math.floor(Math.random() * 30 + 15); 
+        heart.style.fontSize = size + 'px';
+        heart.style.left = Math.random() * 100 + '%';
+        const duration = Math.random() * 8 + 5; 
+        heart.style.animationDuration = duration + 's, 1.5s'; 
+        heart.style.animationDelay = Math.random() * -duration + 's'; 
+        heart.style.color = `rgba(255, ${Math.floor(100 + Math.random()*100)}, 150, ${0.5 + Math.random()*0.4})`;
+        heartsContainer.appendChild(heart);
+      }
+
+      const swiper = new Swiper('.swiper', {
+        speed: 400,
+        spaceBetween: 0,
+        slidesPerView: 1,
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true,
+        },
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        },
+        touchRatio: 1.2,
+        simulateTouch: true,
+        grabCursor: true,
+        resistance: true,
+        resistanceRatio: 0.8,
+        followFinger: true,
+        shortSwipes: true,
+        longSwipes: true,
+        longSwipesRatio: 0.2,
+        longSwipesMs: 300,
+        runCallbacksOnInit: true,
+        observer: true, 
+        observeParents: true,
+      });
+
+      const surpriseBtn = document.getElementById('surpriseBtn');
+      const hiddenMsg = document.getElementById('hiddenMessage');
+
+      function createExtraHeart() {
+        const heart = document.createElement('div');
+        heart.innerHTML = '❤️';
+        heart.style.position = 'fixed';
+        heart.style.left = Math.random() * 100 + '%';
+        heart.style.top = '-10%';
+        heart.style.fontSize = (Math.random() * 30 + 20) + 'px';
+        heart.style.opacity = Math.random() * 0.7 + 0.3;
+        heart.style.color = '#ff99bb';
+        heart.style.pointerEvents = 'none';
+        heart.style.zIndex = 9999;
+        heart.style.transition = 'transform 2s linear, opacity 2s';
+        heart.style.transform = 'translateY(0)';
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+          heart.style.transform = 'translateY(110vh) rotate(360deg)';
+          heart.style.opacity = '0';
+        }, 50);
+
+        setTimeout(() => {
+          heart.remove();
+        }, 2100);
+      }
+
+      if (surpriseBtn) {
+        surpriseBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          if (hiddenMsg.style.display === 'none' || hiddenMsg.style.display === '') {
+            hiddenMsg.style.display = 'block';
+          } else {
+            hiddenMsg.style.display = 'none';
+          }
+          for (let i = 0; i < 15; i++) {
+            createExtraHeart();
+          }
+        });
+      }
+
+      const canvas = document.getElementById('fireworksCanvas');
+      const ctx = canvas.getContext('2d');
+      let particles = [];
+      let animationId = null;
+      let fireworkActive = false;
+
+      function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      window.addEventListener('resize', resizeCanvas);
+      resizeCanvas();
+
+      class Particle {
+        constructor(x, y, color) {
+          this.x = x;
+          this.y = y;
+          this.vx = (Math.random() - 0.5) * 8;
+          this.vy = (Math.random() - 0.5) * 8 - 2;
+          this.color = color;
+          this.size = Math.random() * 4 + 2;
+          this.life = 1.0;
+          this.decay = 0.01 + Math.random() * 0.02;
+        }
+
+        update() {
+          this.x += this.vx;
+          this.y += this.vy;
+          this.vy += 0.1;
+          this.life -= this.decay;
+        }
+
+        draw() {
+          ctx.globalAlpha = this.life;
+          ctx.fillStyle = this.color;
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+
+      function createFirework() {
+        particles = [];
+        const colors = ['#ff4d6d', '#ffb3ba', '#ffdfba', '#ffffba', '#baffc9', '#a0e7e5', '#b4b9ff', '#f5c6e0'];
+        const count = 200;
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2;
+
+        for (let i = 0; i < count; i++) {
+          const color = colors[Math.floor(Math.random() * colors.length)];
+          particles.push(new Particle(centerX, centerY, color));
+        }
+
+        for (let i = 0; i < 50; i++) {
+          const color = colors[Math.floor(Math.random() * colors.length)];
+          particles.push(new Particle(Math.random() * canvas.width, Math.random() * canvas.height * 0.3, color));
+        }
+      }
+
+      function animateFirework() {
+        if (!fireworkActive) return;
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        let alive = false;
+        particles.forEach(p => {
+          p.update();
+          p.draw();
+          if (p.life > 0) alive = true;
+        });
+
+        particles = particles.filter(p => p.life > 0);
+
+        if (alive) {
+          animationId = requestAnimationFrame(animateFirework);
+        } else {
+          fireworkActive = false;
+          canvas.style.display = 'none';
+          if (animationId) {
+            cancelAnimationFrame(animationId);
+            animationId = null;
+          }
+        }
+      }
+
+      function startFirework() {
+        if (fireworkActive) {
+          fireworkActive = false;
+          if (animationId) {
+            cancelAnimationFrame(animationId);
+            animationId = null;
+          }
+        }
+        canvas.style.display = 'block';
+        fireworkActive = true;
+        createFirework();
+        animateFirework();
+      }
+
+      document.getElementById('fireworkBtn').addEventListener('click', function(e) {
+        e.stopPropagation();
+        startFirework();
+      });
+
+      document.addEventListener('touchstart', (e) => {
+        if (e.touches.length > 1) e.preventDefault();
+      }, { passive: false });
+
+    })();
+  </script>
+</body>
+</html>
